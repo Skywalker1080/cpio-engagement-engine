@@ -4,9 +4,10 @@ from src.scrapers.discord_monitor import _build_keyword_index, find_keyword_matc
 from src.agents.discovery import evaluate_message
 from src.agents.responder import generate_reply
 from src.config import load_keywords
+import asyncio
 
 
-def main():
+async def main():
     # Load keywords
     kw = load_keywords()
     idx = _build_keyword_index(kw)
@@ -27,11 +28,11 @@ def main():
     print(f"Categories:  {signal['categories']}\n")
 
     # Responder — generate reply
-    reply = generate_reply(signal)
+    reply = await generate_reply(signal)
     print(f"Generated reply:\n  {reply}\n")
 
     print("--- SMOKE TEST PASSED ---")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

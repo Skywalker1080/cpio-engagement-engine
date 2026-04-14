@@ -1,8 +1,9 @@
 """
-Response Generator (rule-based, no LLM).
+Response Generator (LLM-based).
 
 Maps the signal produced by the Discovery agent to one of four
-simplified response archetypes, then builds a plain-text reply.
+simplified response archetypes, then uses the configured LLM client
+(e.g., Ollama, Claude) to build a contextual, natural reply.
 
 Archetypes (from Project.md):
   1. data_drop        – share a specific metric or data point
@@ -12,60 +13,11 @@ Archetypes (from Project.md):
 """
 
 import logging
-import random
+from src.agents.llm_client import get_llm_client
+from src.prompts import RESPONDER_SYSTEM_PROMPT
 
 logger = logging.getLogger("responder")
-
-# ── Reply templates per archetype ───────────────────────────
-# Each template uses {keyword} and {author} placeholders.
-
-_TEMPLATES: dict[str, list[str]] = {
-    "data_drop": [
-        "Interesting point about {keyword}! According to recent on-chain data, "
-        "this metric has been showing some notable shifts. Worth keeping an eye "
-        "on the trend over the next few days.",
-
-        "Great topic — {keyword} is one of the more underrated signals right now. "
-        "The latest readings suggest some divergence from price action that "
-        "historically precedes interesting moves.",
-
-        "Since you're looking at {keyword}, you might also want to cross-reference "
-        "it with exchange flow data. The combination often gives a clearer picture "
-        "of market sentiment.",
-    ],
-    "pattern_spotter": [
-        "There's actually an interesting pattern emerging around {keyword}. "
-        "When we overlay this with historical data, it mirrors a setup we've "
-        "seen a couple of times before.",
-
-        "Good observation on {keyword}. If you look at the broader context, "
-        "there's a correlation with macro liquidity conditions that's worth "
-        "considering.",
-    ],
-    "question_answer": [
-        "Great question! For {keyword}, the key thing to look at is how it "
-        "relates to the broader market cycle. On-chain analytics platforms "
-        "can give you real-time reads on this.",
-
-        "To answer your question about {keyword} — the most reliable way to "
-        "track this is through a combination of on-chain and exchange data. "
-        "Happy to share more specifics if you're interested!",
-
-        "That's a really common question about {keyword}. The short answer is "
-        "that it depends on the timeframe you're analyzing. For short-term, "
-        "exchange flows matter more; for long-term, holder behavior is key.",
-    ],
-    "polite_correction": [
-        "Just a small note on {keyword} — it's a solid metric but can be "
-        "misleading if you don't adjust for dormant supply. Factoring that in "
-        "often changes the picture significantly.",
-
-        "Appreciate the take on {keyword}! One thing worth noting — many "
-        "dashboards calculate this differently, so it helps to verify the "
-        "methodology before drawing conclusions.",
-    ],
-}
-
+llm = get_llm_client()
 
 def _pick_archetype(signal: dict) -> str:
     """
@@ -89,19 +41,25 @@ def _pick_archetype(signal: dict) -> str:
     return "data_drop"
 
 
-def generate_reply(signal: dict) -> str:
+async def generate_reply(signal: dict) -> str:
     """
-    Generate a rule-based reply string for the given signal.
-
-    Returns the reply text ready to be posted.
+    Generate an LLM-based reply string for the given signal,
+    injecting the chosen archetype into the prompt context.
     """
     archetype = _pick_archetype(signal)
-    template = random.choice(_TEMPLATES[archetype])
+    
+    # Prepare context for the LLM
+    keywords_list = [m["keyword"] for m in signal["keywords"]]
+    user_prompt = f"""[Target Message Context]
+Author: {signal['author']}
+Message: "{signal['text']}"
+Matched Keywords: {keywords_list}
+Desired Strategy (Archetype): {archetype}
 
-    # Use the first matched keyword as the highlight
-    primary_keyword = signal["keywords"][0]["keyword"]
-    reply = template.format(keyword=primary_keyword, author=signal["author"])
+Please generate the reply message (just the raw response text) adhering to the system rules and matching the desired strategy."""
 
-    logger.info("Archetype=%s for message by %s (score=%d)",
+    logger.info("Archetype=%s for message by %s (score=%d). Requesting LLM generation...",
                 archetype, signal["author"], signal["score"])
+                
+    reply = await llm.generate_response(RESPONDER_SYSTEM_PROMPT, user_prompt)
     return reply

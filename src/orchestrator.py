@@ -76,7 +76,7 @@ async def process_message(
         return
 
     # 2. Responder
-    reply_text = generate_reply(signal)
+    reply_text = await generate_reply(signal)
 
     # 3. Publisher
     sent = await send_reply(message.channel, reply_text)

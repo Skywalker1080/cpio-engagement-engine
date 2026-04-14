@@ -13,5 +13,39 @@
     "score": 30,
     "reply": "Appreciate the take on glassnode! One thing worth noting — many dashboards calculate this differently, so it helps to verify the methodology before drawing conclusions.",
     "sent": true
+  },
+  {
+    "timestamp": "2026-04-14T08:02:59.847024+00:00",
+    "author": "the_ray_kar",
+    "channel": "general",
+    "message_text": "The TVL in ethereum protocols is looking strong.",
+    "matched_keywords": [
+      {
+        "keyword": "tvl",
+        "category": "defi_metrics"
+      },
+      {
+        "keyword": "ethereum",
+        "category": "test_triggers"
+      }
+    ],
+    "score": 20,
+    "reply": "Current on-chain data shows a diversification of that TVL into liquid restaking protocols and Layer 2 ecosystems. Comparing this to previous cycles indicates a shift from simple lending toward more complex yield layering.",
+    "sent": true
+  },
+  {
+    "timestamp": "2026-04-14T08:05:23.696090+00:00",
+    "author": "the_ray_kar",
+    "channel": "general",
+    "message_text": "Can anyone explain what the heck is TVL?",
+    "matched_keywords": [
+      {
+        "keyword": "tvl",
+        "category": "defi_metrics"
+      }
+    ],
+    "score": 25,
+    "reply": "TVL, or Total Value Locked, represents the aggregate amount of assets currently staked, deposited, or locked within a specific DeFi protocol's smart contracts. It serves as a metric for measuring liquidity and the overall adoption of a platform. Higher TVL typically indicates greater trust and utility within that ecosystem.",
+    "sent": true
   }
 ]

@@ -17,6 +17,11 @@ DISCORD_TOKEN: str = os.getenv("DISCORD_TOKEN", "").strip(' "')
 APP_ID: str = os.getenv("APP_ID", "").strip(' "')
 PUBLIC_KEY: str = os.getenv("PUBLIC_KEY", "").strip(' "')
 
+# ── LLM ───────────────────────────────────────────────────
+LLM_PROVIDER: str = os.getenv("LLM_PROVIDER", "ollama")
+OLLAMA_HOST: str = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+OLLAMA_MODEL: str = os.getenv("OLLAMA_MODEL", "llama3")
+
 # ── Paths ─────────────────────────────────────────────────
 KEYWORDS_PATH: Path = Path(__file__).resolve().parent / "keywords.json"
 LOG_DIR: Path = _project_root / "logs"
