@@ -1,0 +1,69 @@
+{
+  "on_chain_analytics": [
+    "MVRV",
+    "on-chain",
+    "onchain",
+    "NVT ratio",
+    "realized cap",
+    "SOPR",
+    "HODL waves",
+    "whale alert",
+    "exchange inflow",
+    "exchange outflow",
+    "token velocity",
+    "active addresses"
+  ],
+  "defi_metrics": [
+    "TVL",
+    "total value locked",
+    "yield farming",
+    "impermanent loss",
+    "liquidity pool",
+    "DEX volume",
+    "lending rate",
+    "borrow rate",
+    "protocol revenue"
+  ],
+  "competitor_mentions": [
+    "Glassnode",
+    "Nansen",
+    "Dune Analytics",
+    "Messari",
+    "IntoTheBlock",
+    "Santiment",
+    "CryptoQuant",
+    "Token Terminal"
+  ],
+  "pain_points": [
+    "which analytics tool",
+    "best dashboard",
+    "can't find data",
+    "where to check",
+    "any tool for",
+    "how to track",
+    "need metrics",
+    "looking for analytics",
+    "portfolio tracker",
+    "real-time data"
+  ],
+  "market_structure": [
+    "market cap",
+    "dominance",
+    "correlation",
+    "volatility index",
+    "funding rate",
+    "open interest",
+    "liquidation",
+    "order flow"
+  ],
+  "test_triggers": [
+    "bitcoin",
+    "ethereum",
+    "solana",
+    "alpha",
+    "bull market",
+    "bear market",
+    "crypto",
+    "help"
+  ]
+}

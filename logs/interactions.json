@@ -1,0 +1,17 @@
+[
+  {
+    "timestamp": "2026-04-14T07:37:47.974586+00:00",
+    "author": "the_ray_kar",
+    "channel": "general",
+    "message_text": "\"I've been using Glassnode but looking for more data.\"",
+    "matched_keywords": [
+      {
+        "keyword": "glassnode",
+        "category": "competitor_mentions"
+      }
+    ],
+    "score": 30,
+    "reply": "Appreciate the take on glassnode! One thing worth noting — many dashboards calculate this differently, so it helps to verify the methodology before drawing conclusions.",
+    "sent": true
+  }
+]
