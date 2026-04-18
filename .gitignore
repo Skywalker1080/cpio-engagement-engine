@@ -9,3 +9,11 @@ wheels/
 # Virtual environments
 .venv
 .env
+
+# API Tokens & Sessions
+.linkedin_token.json
+*.session
+src/safety/reddit_cookies.json
+
+# Local Logs
+logs/*.json
